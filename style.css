@@ -1859,3 +1859,33 @@ footer {
         width: 260px;
     }
 }
+
+
+/* ============================================================
+   هدر ساده (فقط لوگو)
+   ============================================================ */
+.header-top-simple {
+    justify-content: space-between !important;
+    align-items: center;
+}
+
+.logo-center {
+    margin: 0 auto;
+    flex: 1;
+    text-align: center;
+    justify-content: center;
+}
+
+/* ============================================================
+   جستجو داخل Drawer
+   ============================================================ */
+.drawer-search {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+}
+
+.drawer-search .search-box {
+    margin: 0;
+    max-width: 100%;
+    width: 100%;
+}
