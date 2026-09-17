@@ -671,3 +671,43 @@ function closeDrawer() {
         };
     }
 })();
+// ============================================================
+// جستجو داخل Drawer
+// ============================================================
+function drawerSearch() {
+    const input = document.getElementById('drawerSearchInput');
+    if (!input) return;
+
+    const query = input.value.trim();
+    if (!query) {
+        showToast('لطفاً عبارت جستجو را وارد کنید', 'error');
+        return;
+    }
+
+    // بستن drawer
+    closeDrawer();
+
+    // پر کردن input اصلی و جستجو
+    const mainInput = document.getElementById('searchInput');
+    if (mainInput) mainInput.value = query;
+
+    // اجرای جستجو
+    setTimeout(() => {
+        searchProduct();
+    }, 200);
+
+    // پاک کردن input drawer
+    input.value = '';
+}
+
+// Enter در drawer search
+document.addEventListener('DOMContentLoaded', function() {
+    const drawerInput = document.getElementById('drawerSearchInput');
+    if (drawerInput) {
+        drawerInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                drawerSearch();
+            }
+        });
+    }
+});
