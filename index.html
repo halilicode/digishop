@@ -11,11 +11,11 @@
 <body>
 
     <!-- ============================================================
-         HEADER
+         HEADER (نسخه ساده - فقط لوگو)
          ============================================================ -->
     <header>
         <div class="header-inner">
-            <div class="header-top">
+            <div class="header-top header-top-simple">
 
                 <!-- دکمه منوی موبایل -->
                 <button class="menu-toggle" id="menuToggle" aria-label="منو">
@@ -23,28 +23,11 @@
                 </button>
 
                 <!-- لوگو -->
-                <a href="#" onclick="showPage('home')" class="logo">
+                <a href="#" onclick="showPage('home')" class="logo logo-center">
                     <i class="fas fa-store"></i>
                     <span>دیجی</span>شاپ
                 </a>
 
-                <!-- جستجو -->
-                <div class="search-box">
-                    <input type="text" id="searchInput" placeholder="جستجوی محصول..." />
-                    <button onclick="searchProduct()"><i class="fas fa-search"></i></button>
-                </div>
-
-                <!-- آیکون‌ها -->
-                <div class="header-icons">
-                    <button class="header-icon-btn" onclick="showPage('cart')" title="سبد خرید">
-                        <i class="fas fa-shopping-cart"></i>
-                        <span class="cart-count" id="cartCount">0</span>
-                    </button>
-                    <button class="header-icon-btn" onclick="handleUserIcon()" id="userIcon" title="حساب کاربری">
-                        <i class="fas fa-user"></i>
-                        <span class="user-name" id="userNameHeader"></span>
-                    </button>
-                </div>
             </div>
 
             <!-- منوی دسکتاپ -->
@@ -54,6 +37,7 @@
                 <a href="#" data-page="cart"><i class="fas fa-shopping-cart"></i> سبد خرید</a>
                 <a href="#" data-page="about"><i class="fas fa-info-circle"></i> درباره ما</a>
                 <a href="#" data-page="contact"><i class="fas fa-phone"></i> تماس با ما</a>
+                <a href="#" onclick="handleUserIcon()"><i class="fas fa-user"></i> حساب کاربری</a>
             </nav>
         </div>
     </header>
@@ -72,6 +56,16 @@
                 <i class="fas fa-times"></i>
             </button>
         </div>
+
+        <!-- جستجو داخل drawer -->
+        <div class="drawer-search">
+            <div class="search-box">
+                <input type="text" id="drawerSearchInput" placeholder="جستجوی محصول..." />
+                <button onclick="drawerSearch()"><i class="fas fa-search"></i></button>
+            </div>
+        </div>
+
+        <!-- منوی drawer -->
         <nav class="drawer-nav">
             <a href="#" data-page="home" class="active"><i class="fas fa-home"></i> خانه</a>
             <a href="#" data-page="products"><i class="fas fa-th-list"></i> محصولات</a>
