@@ -1,10 +1,4 @@
-// ============================================
-// اسکریپت کامل فروشگاه دیجی‌شاپ
-// ============================================
 
-// ============================================================
-// سبد خرید
-// ============================================================
 let cart = JSON.parse(localStorage.getItem('digishop_cart')) || [];
 
 function saveCart() {
@@ -71,9 +65,7 @@ function getTotalItems() {
     return cart.reduce((sum, item) => sum + item.qty, 0);
 }
 
-// ============================================================
-// رندر سبد خرید
-// ============================================================
+
 function renderCart() {
     const container = document.getElementById('cartContent');
     if (!container) return;
@@ -138,16 +130,14 @@ function renderCart() {
     `;
 }
 
-// ============================================================
-// پرداخت
-// ============================================================
+
 function checkout() {
     if (cart.length === 0) {
         showToast('سبد خرید خالی است!', 'error');
         return;
     }
     
-    // ارسال به سرور
+
     fetch('checkout.php', {
         method: 'POST',
         headers: {
@@ -172,9 +162,7 @@ function checkout() {
     });
 }
 
-// ============================================================
-// اسلایدر
-// ============================================================
+
 let currentSlide = 0;
 const slides = document.querySelectorAll('.slider-slide');
 
@@ -184,7 +172,6 @@ function initSlider() {
         s.classList.toggle('active', i === 0);
     });
     
-    // ساخت دات‌ها
     const dotsContainer = document.getElementById('sliderDots');
     if (dotsContainer) {
         dotsContainer.innerHTML = '';
@@ -220,23 +207,19 @@ function prevSlide() {
     goToSlide((currentSlide - 1 + slides.length) % slides.length);
 }
 
-// ============================================================
-// صفحه‌بندی
-// ============================================================
+
 function showPage(pageId) {
-    // مخفی کردن همه صفحات
+   
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     
-    // نمایش صفحه مورد نظر
+   
     const page = document.getElementById('page-' + pageId);
     if (page) page.classList.add('active');
-    
-    // بروزرسانی منو
+
     document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
     const navLink = document.querySelector(`nav a[data-page="${pageId}"]`);
     if (navLink) navLink.classList.add('active');
-    
-    // اگر صفحه سبد خرید بود رندر کن
+   
     if (pageId === 'cart') renderCart();
     
     // اگر صفحه درباره بود آمار رو نشون بده
@@ -570,4 +553,56 @@ function handleUserIcon() {
         showPage('login');
         switchAuth('login');
     }
+}
+
+// ============================================================
+// منوی موبایل (Drawer)
+// ============================================================
+document.addEventListener('DOMContentLoaded', function() {
+    const menuToggle = document.getElementById('menuToggle');
+    const drawer = document.getElementById('drawer');
+    const drawerOverlay = document.getElementById('drawerOverlay');
+    const drawerClose = document.getElementById('drawerClose');
+
+    function openDrawer() {
+        drawer.classList.add('active');
+        drawerOverlay.classList.add('active');
+        document.body.classList.add('no-scroll');
+    }
+
+    function closeDrawer() {
+        drawer.classList.remove('active');
+        drawerOverlay.classList.remove('active');
+        document.body.classList.remove('no-scroll');
+    }
+
+    if (menuToggle) menuToggle.addEventListener('click', openDrawer);
+    if (drawerClose) drawerClose.addEventListener('click', closeDrawer);
+    if (drawerOverlay) drawerOverlay.addEventListener('click', closeDrawer);
+
+    // لینک‌های داخل drawer
+    document.querySelectorAll('.drawer-nav a[data-page]').forEach(a => {
+        a.addEventListener('click', function(e) {
+            e.preventDefault();
+            const page = this.dataset.page;
+            closeDrawer();
+            setTimeout(() => showPage(page), 200);
+
+            // بروزرسانی active
+            document.querySelectorAll('.drawer-nav a').forEach(x => x.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
+
+    // بستن با کلید Escape
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeDrawer();
+    });
+});
+
+// تابع کمکی برای بستن drawer
+function closeDrawer() {
+    document.getElementById('drawer')?.classList.remove('active');
+    document.getElementById('drawerOverlay')?.classList.remove('active');
+    document.body.classList.remove('no-scroll');
 }
