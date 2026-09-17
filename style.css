@@ -1,5 +1,6 @@
 /* ============================================
    DigiShop - Professional Style v2
+   با هدر هوشمند (Auto-Hide Header)
    ============================================ */
 
 * {
@@ -45,7 +46,7 @@ body.no-scroll {
 }
 
 /* ============================================================
-   HEADER
+   HEADER (با هدر هوشمند)
    ============================================================ */
 header {
     background: var(--card);
@@ -54,6 +55,21 @@ header {
     top: 0;
     z-index: 1000;
     border-bottom: 1px solid var(--border);
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.3s ease,
+                padding 0.3s ease;
+    will-change: transform;
+}
+
+/* هدر پنهان (هنگام اسکرول به پایین) */
+header.header-hidden {
+    transform: translateY(-100%);
+    box-shadow: none;
+}
+
+/* هدر با سایه (هنگام اسکرول به بالا) */
+header.header-scrolled {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 .header-inner {
@@ -487,7 +503,7 @@ nav a i {
     width: 44px;
     height: 44px;
     border-radius: 50%;
-    font-size: 18px;
+    font-size: 16px;
     cursor: pointer;
     transition: var(--transition);
     z-index: 10;
@@ -690,9 +706,8 @@ nav a i {
 
 .product-card .quick-view i {
     color: #fff;
-    font-size: 22px;
+    font-size: 20px;
     background: var(--primary);
-    padding: 12px;
     border-radius: 50%;
     transition: var(--transition);
     width: 46px;
@@ -1473,326 +1488,312 @@ footer {
    RESPONSIVE - MOBILE (<= 768px)
    ============================================================ */
 @media (max-width: 768px) {
-    /* Header */
     .header-inner {
         padding: 10px 14px;
     }
-    
+
     .header-top {
         gap: 10px;
     }
-    
+
     .menu-toggle {
         display: flex;
         align-items: center;
         justify-content: center;
         order: -1;
     }
-    
+
     .logo {
         font-size: 20px;
     }
-    
+
     .logo i {
         font-size: 22px;
     }
-    
+
     .search-box {
         order: 3;
         flex: 1 1 100%;
         max-width: 100%;
         margin-top: 4px;
     }
-    
+
     .search-box input {
         padding: 10px 16px;
         font-size: 13px;
     }
-    
+
     .search-box button {
         padding: 10px 18px;
     }
-    
+
     .header-icons {
         margin-right: auto;
     }
-    
+
     .header-icon-btn .user-name {
         display: none;
     }
-    
+
     .header-icon-btn {
         padding: 8px 10px;
     }
-    
-    /* Hide nav on mobile (use drawer instead) */
+
     nav {
         display: none;
     }
-    
-    /* Pages */
+
     .page {
         padding: 18px 14px 40px;
     }
-    
-    /* Slider */
+
     .slider {
         height: 200px;
         border-radius: 12px;
         margin-bottom: 20px;
     }
-    
+
     .slide-text {
         bottom: 20px;
         right: 16px;
         left: 16px;
     }
-    
+
     .slide-text h2 {
         font-size: 18px;
     }
-    
+
     .slide-text p {
         font-size: 12px;
     }
-    
+
     .slider-btn {
         width: 36px;
         height: 36px;
-        font-size: 14px;
+        font-size: 13px;
     }
-    
+
     .slider-btn.prev { left: 10px; }
     .slider-btn.next { right: 10px; }
-    
-    /* Categories - 3 columns */
+
     .categories {
         grid-template-columns: repeat(3, 1fr);
         gap: 8px;
         margin: 20px 0;
     }
-    
+
     .category-item {
         padding: 14px 8px;
         border-radius: 12px;
     }
-    
+
     .category-item i {
         font-size: 22px;
         margin-bottom: 6px;
     }
-    
+
     .category-item span {
         font-size: 11px;
     }
-    
-    /* Section Title */
+
     .section-title {
         font-size: 17px;
         margin: 22px 0 14px;
     }
-    
-    /* Products - 2 columns */
+
     .products-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 10px;
     }
-    
+
     .product-card {
         padding: 8px;
         border-radius: 12px;
     }
-    
+
     .product-card .image {
         margin-bottom: 8px;
         border-radius: 8px;
     }
-    
+
     .product-card .badge {
         top: 6px;
         right: 6px;
         padding: 3px 9px;
         font-size: 10px;
     }
-    
+
     .product-card h3 {
         font-size: 12px;
         height: 36px;
         margin-bottom: 4px;
     }
-    
+
     .product-card .rating {
         font-size: 11px;
         margin-bottom: 4px;
     }
-    
+
     .product-card .rating .rating-num {
         font-size: 11px;
     }
-    
+
     .product-card .price {
         font-size: 13px;
         margin-bottom: 8px;
     }
-    
+
     .product-card .old-price {
         font-size: 10px;
     }
-    
+
     .product-card .add-btn {
         padding: 8px;
         font-size: 11px;
         border-radius: 8px;
     }
-    
-    /* Filter */
+
     .filter-bar {
         gap: 6px;
         margin-bottom: 16px;
     }
-    
+
     .filter-btn {
         padding: 7px 14px;
         font-size: 12px;
     }
-    
-    /* Cart */
+
     .cart-item {
         padding: 12px 14px;
         flex-wrap: wrap;
     }
-    
+
     .cart-item .info {
         flex: 1 1 100%;
     }
-    
+
     .cart-item .qty {
         margin-right: auto;
     }
-    
+
     .cart-total {
         padding: 18px;
         flex-direction: column;
         align-items: stretch;
         text-align: center;
     }
-    
+
     .cart-total .total-info {
         align-items: center;
     }
-    
+
     .cart-total .total-price {
         font-size: 20px;
     }
-    
+
     .btn-primary {
         padding: 12px 24px;
         font-size: 14px;
         width: 100%;
     }
-    
-    /* About */
+
     .about-container {
         padding: 22px 18px;
     }
-    
+
     .about-content h2 {
         font-size: 19px;
     }
-    
+
     .about-content p {
         font-size: 13px;
         line-height: 1.9;
     }
-    
+
     .about-stats {
         grid-template-columns: 1fr 1fr;
         gap: 10px;
         margin-top: 20px;
     }
-    
+
     .stat-item {
         padding: 16px 10px;
     }
-    
+
     .stat-item i {
         font-size: 24px;
     }
-    
+
     .stat-item h3 {
         font-size: 20px;
     }
-    
+
     .stat-item p {
         font-size: 11px;
     }
-    
-    /* Contact */
+
     .contact-info,
     .contact-form {
         padding: 20px 16px;
     }
-    
-    /* Auth */
+
     .auth-container {
         padding: 16px 8px;
     }
-    
+
     .auth-card {
         padding: 28px 20px;
         border-radius: 14px;
     }
-    
+
     .auth-card h3 {
         font-size: 19px;
         margin-bottom: 20px;
     }
-    
+
     .auth-card input {
         padding: 12px 16px;
         font-size: 13px;
     }
-    
+
     .profile-avatar {
         width: 70px;
         height: 70px;
         font-size: 30px;
     }
-    
+
     .action-btn {
         padding: 12px 14px;
         font-size: 13px;
     }
-    
-    /* Footer */
+
     footer {
         padding: 30px 16px 16px;
         margin-top: 30px;
     }
-    
+
     .footer-grid {
         grid-template-columns: 1fr 1fr;
         gap: 20px;
     }
-    
+
     .footer-col h4 {
         font-size: 14px;
         margin-bottom: 12px;
     }
-    
+
     .footer-col a,
     .footer-col p {
         font-size: 12px;
         margin: 6px 0;
     }
-    
+
     .social-links a {
         width: 34px;
         height: 34px;
         font-size: 14px;
     }
-    
-    /* Toast */
+
     .toast {
         bottom: 16px;
         right: 16px;
@@ -1811,49 +1812,49 @@ footer {
         grid-template-columns: repeat(2, 1fr);
         gap: 8px;
     }
-    
+
     .product-card h3 {
         font-size: 11px;
         height: 34px;
     }
-    
+
     .product-card .price {
         font-size: 12px;
     }
-    
+
     .product-card .add-btn {
         font-size: 10px;
         padding: 7px;
     }
-    
+
     .footer-grid {
         grid-template-columns: 1fr;
     }
-    
+
     .about-stats {
         grid-template-columns: 1fr;
     }
-    
+
     .categories {
         grid-template-columns: repeat(3, 1fr);
     }
-    
+
     .category-item i {
         font-size: 20px;
     }
-    
+
     .category-item span {
         font-size: 10px;
     }
-    
+
     .logo {
         font-size: 18px;
     }
-    
+
     .logo i {
         font-size: 20px;
     }
-    
+
     .drawer {
         width: 260px;
     }
