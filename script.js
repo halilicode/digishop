@@ -606,3 +606,68 @@ function closeDrawer() {
     document.getElementById('drawerOverlay')?.classList.remove('active');
     document.body.classList.remove('no-scroll');
 }
+// ============================================================
+// هدر با پنهان/نمایان هوشمند (Auto-Hide Header)
+// ============================================================
+(function initSmartHeader() {
+    let lastScrollTop = 0;
+    let ticking = false;
+    const SCROLL_THRESHOLD = 10;    // حداقل تغییر برای واکنش
+    const TOP_OFFSET = 80;          // اگه به بالای صفحه رسید، همیشه نشون بده
+
+    function handleScroll() {
+        const header = document.querySelector('header');
+        if (!header) return;
+
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+        // اگه در بالای صفحه هستیم، هدر رو نشون بده
+        if (scrollTop <= TOP_OFFSET) {
+            header.classList.remove('header-hidden');
+            header.classList.remove('header-scrolled');
+            lastScrollTop = scrollTop;
+            return;
+        }
+
+        // اگه به‌اندازه‌ی کافی تغییر نکرده، کاری نکن
+        if (Math.abs(lastScrollTop - scrollTop) <= SCROLL_THRESHOLD) {
+            return;
+        }
+
+        // اسکرول به پایین → پنهان
+        if (scrollTop > lastScrollTop) {
+            header.classList.add('header-hidden');
+        }
+        // اسکرول به بالا → نمایان
+        else {
+            header.classList.remove('header-hidden');
+            header.classList.add('header-scrolled');
+        }
+
+        lastScrollTop = scrollTop;
+    }
+
+    // استفاده از requestAnimationFrame برای performance بهتر
+    window.addEventListener('scroll', function() {
+        if (!ticking) {
+            window.requestAnimationFrame(function() {
+                handleScroll();
+                ticking = false;
+            });
+            ticking = true;
+        }
+    }, { passive: true });
+
+    // وقتی صفحه‌بندی عوض می‌شه، هدر رو نشون بده
+    const originalShowPage = window.showPage;
+    if (typeof originalShowPage === 'function') {
+        window.showPage = function(pageId) {
+            const header = document.querySelector('header');
+            if (header) {
+                header.classList.remove('header-hidden');
+                header.classList.remove('header-scrolled');
+            }
+            return originalShowPage.apply(this, arguments);
+        };
+    }
+})();
